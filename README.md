@@ -8,7 +8,7 @@ Git is a powerful tool for version control, but some commands can be time-consum
 This script, delete-stale-branches.sh, checks for all local branches that no longer exist on the server and deletes them. To add this script as an alias:
 
 ```shell
-git config --global alias.delete-stale-branches '!bash {path}/delete-stale-branchs.sh'
+git config --global alias.delete-stale-branches '!bash {path}/delete-stale-branches.sh'
 ```
 
 To use this alias, simply run `git delete-stale-branches` in your terminal. This will save you time by automatically deleting local branches that are no longer needed.
