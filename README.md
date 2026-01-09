@@ -10,7 +10,7 @@ To ensure portability across different machines and operating systems without ha
 Clone the repository and run the installation script. This will add the `GIT_HELPERS` variable to your shell profile (`.bashrc`, `.zshrc`, etc.).
 
 ```bash
-git clone [https://github.com/bernardbr/git-helpers.git](https://github.com/bernardbr/git-helpers.git)
+git clone https://github.com/bernardbr/git-helpers.git
 cd git-helpers
 chmod +x install-env.sh
 ./install-env.sh
