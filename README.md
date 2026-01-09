@@ -1,34 +1,99 @@
 # git-helpers
-A set of helper scripts for the Git command line.
 
-## Git Aliases for Time-Saving Commands
-Git is a powerful tool for version control, but some commands can be time-consuming and repetitive. Luckily, git provides a way to create aliases for frequently used commands, allowing for quicker and easier use. Here are three scripts and how to add them as aliases to your git workflow:
+A set of helper scripts for the Git command line designed to automate repetitive tasks and keep your repository clean.
+
+## 🚀 Installation & Setup
+
+To ensure portability across different machines and operating systems without hardcoding paths, this repository includes a setup script that registers the installation directory as an environment variable (`GIT_HELPERS`).
+
+### 1. Clone and Install
+Clone the repository and run the installation script. This will add the `GIT_HELPERS` variable to your shell profile (`.bashrc`, `.zshrc`, etc.).
+
+```bash
+git clone [https://github.com/bernardbr/git-helpers.git](https://github.com/bernardbr/git-helpers.git)
+cd git-helpers
+chmod +x install-env.sh
+./install-env.sh
+
+```
+
+### 2. Reload Shell
+
+After running the script, reload your terminal configuration to apply the changes:
+
+```bash
+source ~/.bashrc
+# OR
+source ~/.zshrc
+
+```
+
+---
+
+## ⚙️ Configuration
+
+Once the `GIT_HELPERS` variable is set, you can configure your global `.gitconfig` using the variable. This approach works on Linux, macOS, and WSL.
+
+### Option A: Edit `.gitconfig` directly (Recommended)
+
+Open your global config (`git config --global -e`) and paste the following block:
+
+```ini
+[alias]
+    # Deletes local branches that are gone on the remote
+    delete-stale-branches = !bash "$GIT_HELPERS"/delete-stale-branches.sh
+    
+    # Renames current branch locally and on remote
+    rename = !bash "$GIT_HELPERS"/rename-branch.sh
+    
+    # Shows the latest tag
+    last-tag = !bash "$GIT_HELPERS"/show-last-tag.sh
+    
+    # Deletes local tags that are gone on the remote
+    delete-stale-tags = !bash "$GIT_HELPERS"/delete-stale-tags.sh
+
+```
+
+### Option B: Via Command Line
+
+Alternatively, you can run these commands one by one:
+
+```bash
+git config --global alias.delete-stale-branches '!bash "$GIT_HELPERS"/delete-stale-branches.sh'
+git config --global alias.rename '!bash "$GIT_HELPERS"/rename-branch.sh'
+git config --global alias.last-tag '!bash "$GIT_HELPERS"/show-last-tag.sh'
+git config --global alias.delete-stale-tags '!bash "$GIT_HELPERS"/delete-stale-tags.sh'
+
+```
+
+---
+
+## 🛠️ Scripts Description
 
 ### Delete Stale Branches
-This script, delete-stale-branches.sh, checks for all local branches that no longer exist on the server and deletes them. To add this script as an alias:
 
-```shell
-git config --global alias.delete-stale-branches '!bash {path}/delete-stale-branches.sh'
-```
+Checks for all local branches that no longer exist on the server (remote) and deletes them.
 
-To use this alias, simply run `git delete-stale-branches` in your terminal. This will save you time by automatically deleting local branches that are no longer needed.
+* **Usage:** `git delete-stale-branches`
 
 ### Rename Branch
-The rename-branch.sh script allows you to rename both the local and remote branches. The syntax for this script is `git rename <new-branch-name>`. To add this script as an alias:
 
-```shell
-git config --global alias.rename '!bash {path}/rename-branch.sh'
-```
-  
-Once added, you can use this alias by running `git rename <new-branch-name>` in your terminal. This will save you time by quickly renaming branches without having to use multiple commands.
+Renames both the local and remote branches while maintaining tracking.
+
+* **Usage:** `git rename <new-branch-name>`
 
 ### Show Last Tag
-The show-last-tag.sh script displays the latest tag created. To add this script as an alias:
 
-```shell
-git config --global alias.show-last-tag '!bash {path}/show-last-tag.sh'
-```
+Displays the latest tag created in the current tree.
 
-To use this alias, simply run `git show-last-tag` in your terminal. This will save you time by quickly displaying the latest tag without having to search through the commit history.
+* **Usage:** `git last-tag`
 
-Using these three aliases can significantly streamline your git workflow and save you valuable time.
+### Delete Stale Tags
+
+Syncs your local tags with the remote, removing tags locally that were deleted on the server.
+
+* **Usage:** `git delete-stale-tags`
+
+
+---
+Made with ❤️ by Bernardo
