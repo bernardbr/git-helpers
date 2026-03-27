@@ -4,35 +4,45 @@ A set of helper scripts for the Git command line designed to automate repetitive
 
 ## 🚀 Installation & Setup
 
-To ensure portability across different machines and operating systems without hardcoding paths, this repository includes a setup script that registers the installation directory as an environment variable (`GIT_HELPERS`).
+To ensure portability across different machines and operating systems without hardcoding paths, this repository includes setup scripts that register the installation directory as an environment variable (`GIT_HELPERS`).
 
-### 1. Clone and Install
-Clone the repository and run the installation script. This will add the `GIT_HELPERS` variable to your shell profile (`.bashrc`, `.zshrc`, etc.).
+### Linux (Ubuntu/Debian)
+
+Clone the repository and run the Bash installation script. This will add the `GIT_HELPERS` variable to your `.bashrc` or `.profile`.
 
 ```bash
-git clone https://github.com/bernardbr/git-helpers.git
+git clone [https://github.com/bernardbr/git-helpers.git](https://github.com/bernardbr/git-helpers.git)
 cd git-helpers
 chmod +x install-env.sh
 ./install-env.sh
-
 ```
 
-### 2. Reload Shell
-
-After running the script, reload your terminal configuration to apply the changes:
-
+Apply the changes:
 ```bash
 source ~/.bashrc
-# OR
-source ~/.zshrc
-
 ```
 
----
+### macOS (Zsh)
+
+Clone the repository and run the Zsh installation script optimized for macOS. This will add the `GIT_HELPERS` variable to your `.zshrc`.
+
+```zsh
+git clone [https://github.com/bernardbr/git-helpers.git](https://github.com/bernardbr/git-helpers.git)
+cd git-helpers
+chmod +x install.zsh
+./install.zsh
+```
+
+Apply the changes:
+```zsh
+source ~/.zshrc
+```
+
+***
 
 ## ⚙️ Configuration
 
-Once the `GIT_HELPERS` variable is set, you can configure your global `.gitconfig` using the variable. This approach works on Linux, macOS, and WSL.
+Once the `GIT_HELPERS` variable is set, you can configure your global `.gitconfig` using the variable. This approach works natively on Linux, macOS, and WSL.
 
 ### Option A: Edit `.gitconfig` directly (Recommended)
 
@@ -51,7 +61,6 @@ Open your global config (`git config --global -e`) and paste the following block
     
     # Deletes local tags that are gone on the remote
     delete-stale-tags = !bash "$GIT_HELPERS"/delete-stale-tags.sh
-
 ```
 
 ### Option B: Via Command Line
@@ -63,10 +72,9 @@ git config --global alias.delete-stale-branches '!bash "$GIT_HELPERS"/delete-sta
 git config --global alias.rename '!bash "$GIT_HELPERS"/rename-branch.sh'
 git config --global alias.last-tag '!bash "$GIT_HELPERS"/show-last-tag.sh'
 git config --global alias.delete-stale-tags '!bash "$GIT_HELPERS"/delete-stale-tags.sh'
-
 ```
 
----
+***
 
 ## 🛠️ Scripts Description
 
@@ -95,5 +103,5 @@ Syncs your local tags with the remote, removing tags locally that were deleted o
 * **Usage:** `git delete-stale-tags`
 
 
----
+***
 Made with ❤️ by Bernardo
