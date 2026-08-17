@@ -38,11 +38,30 @@ Apply the changes:
 source ~/.zshrc
 ```
 
+### Windows (PowerShell)
+
+Clone the repository and run the PowerShell installation script. Instead of a shell rc file, it registers `GIT_HELPERS` as a **User** environment variable (persisted in the registry, no admin rights required), so it is visible to `git.exe` and Git Bash from any terminal.
+
+```powershell
+git clone https://github.com/bernardbr/git-helpers.git
+cd git-helpers
+./install-env.ps1
+```
+
+If script execution is blocked by the current policy, run it for this session only:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install-env.ps1
+```
+
+The variable is set in the current session automatically. Other terminals and applications pick it up after being restarted.
+
+> **Note:** the helper scripts are Bash scripts, so Git for Windows (which ships with Git Bash) must be installed — the `!bash ...` aliases below work as-is.
+
 ***
 
 ## ⚙️ Configuration
 
-Once the `GIT_HELPERS` variable is set, you can configure your global `.gitconfig` using the variable. This approach works natively on Linux, macOS, and WSL.
+Once the `GIT_HELPERS` variable is set, you can configure your global `.gitconfig` using the variable. This approach works natively on Linux, macOS, WSL, and Windows (Git Bash resolves `$GIT_HELPERS` at runtime).
 
 ### Option A: Edit `.gitconfig` directly (Recommended)
 
@@ -72,6 +91,15 @@ git config --global alias.delete-stale-branches '!bash "$GIT_HELPERS"/delete-sta
 git config --global alias.rename '!bash "$GIT_HELPERS"/rename-branch.sh'
 git config --global alias.last-tag '!bash "$GIT_HELPERS"/show-last-tag.sh'
 git config --global alias.delete-stale-tags '!bash "$GIT_HELPERS"/delete-stale-tags.sh'
+```
+
+On PowerShell, use double quotes with the `$` escaped so PowerShell does not expand it:
+
+```powershell
+git config --global alias.delete-stale-branches "!bash `"`$GIT_HELPERS`"/delete-stale-branches.sh"
+git config --global alias.rename "!bash `"`$GIT_HELPERS`"/rename-branch.sh"
+git config --global alias.last-tag "!bash `"`$GIT_HELPERS`"/show-last-tag.sh"
+git config --global alias.delete-stale-tags "!bash `"`$GIT_HELPERS`"/delete-stale-tags.sh"
 ```
 
 ***
